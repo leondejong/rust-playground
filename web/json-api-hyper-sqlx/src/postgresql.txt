@@ -1,0 +1,26 @@
+brew install postgresql
+brew services start postgresql
+brew services list
+
+psql --version
+psql postgres
+
+CREATE DATABASE "list";
+CREATE USER "user" WITH ENCRYPTED PASSWORD 'user';
+GRANT ALL PRIVILEGES ON DATABASE "list" TO "user";
+
+postgres=# \c list
+
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  content TEXT NOT NULL,
+  active BOOLEAN DEFAULT 'f' NOT NULL,
+  created timestamptz DEFAULT NOW() NOT NULL,
+  updated timestamptz DEFAULT NOW() NOT NULL
+);
+
+GRANT ALL PRIVILEGES ON TABLE "items" TO "user";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "user";
+
+echo DATABASE_URL=postgres://user:user@127.0.0.1/list > .env
