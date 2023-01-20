@@ -2,7 +2,11 @@
 
 ## General
 
-- `general/collections` -> Collection Examples
+- `general/collections` -> Collection examples
+
+## CLI
+
+- `cli/random` -> CLI random sample generator example with `clap` and `rand`
 
 ## Web
 
