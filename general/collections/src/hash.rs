@@ -18,9 +18,9 @@ impl Item {
         }
     }
     fn update(&mut self, name: &str, content: &str, active: bool) -> &Self {
+        self.active = active;
         self.name = name.into();
         self.content = content.into();
-        self.active = active;
         self
     }
     fn id(&self) -> u32 {

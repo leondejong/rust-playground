@@ -27,30 +27,30 @@ fn random(length: usize) -> String {
 #[derive(Clone, Debug, PartialEq)]
 pub struct Item {
     id: String,
+    active: bool,
     name: String,
     content: String,
     created: DateTime<Utc>,
     updated: DateTime<Utc>,
-    active: bool,
 }
 
 impl Item {
     pub fn new(id: &str, name: &str, content: &str, active: bool) -> Self {
         let datetime = now();
         Self {
+            active,
             id: id.into(),
             name: name.into(),
             content: content.into(),
             created: datetime,
             updated: datetime,
-            active,
         }
     }
     pub fn update(&mut self, name: &str, content: &str, active: bool) -> &Self {
+        self.active = active;
         self.name = name.into();
         self.content = content.into();
         self.updated = now();
-        self.active = active;
         self
     }
     pub fn id(&self) -> &str {

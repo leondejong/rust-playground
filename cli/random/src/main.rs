@@ -6,6 +6,8 @@ mod random;
 use cli::*;
 use random::*;
 
+// cargo run -- --help
+
 fn main() {
     let cli = CLI::parse();
 
@@ -27,10 +29,10 @@ fn main() {
                 println!("{}", string(LENGTH));
             }
         }
-        Some(Commands::RangeF { start, end }) => {
+        Some(Commands::FloatRange { start, end }) => {
             println!("{}", range(*start, *end));
         }
-        Some(Commands::RangeN { start, end }) => {
+        Some(Commands::IntegerRange { start, end }) => {
             println!("{}", range(*start, *end));
         }
         Some(Commands::Custom { length, chars }) => {

@@ -19,7 +19,7 @@ fn main() {
     print!("\n{}\n\n", "Vector Collection:");
 
     print!(
-        "\n{:#?}, {:#?}, {:#?}\n\n",
+        "{:#?}\n\n{:#?}\n\n{:#?}\n\n",
         vlist,
         vlist.all(),
         vlist.one(3)
@@ -34,10 +34,10 @@ fn main() {
     hlist.update(3, "Name03", "Content03", false);
     hlist.remove(2);
 
-    print!("\n{}\n\n", "HashMap Collection");
+    print!("{}\n\n", "HashMap Collection:");
 
     print!(
-        "\n{:#?}, {:#?}, {:#?}\n\n",
+        "{:#?}\n\n{:#?}\n\n{:#?}\n\n",
         hlist,
         hlist.all(),
         hlist.one(3)
@@ -61,10 +61,10 @@ fn main() {
     tlist.update(item3.id(), "Name03", "Content03", true);
     tlist.remove(item2.id());
 
-    print!("\n{}\n\n", "BTreeMap Collection:");
+    print!("{}\n\n", "BTreeMap Collection:");
 
     print!(
-        "\n{}, {}, {}, {}\n\n",
+        "ID: {}\nName: {}\nContent: {}\nActive: {}\n\n",
         item1.id(),
         item1.name(),
         item1.content(),
@@ -72,7 +72,7 @@ fn main() {
     );
 
     print!(
-        "\n{:#?}, {:#?}, {:#?}\n\n",
+        "{:#?}\n\n{:#?}\n\n{:#?}\n\n",
         tlist,
         tlist.all(),
         tlist.one(item3.id())

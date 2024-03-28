@@ -1,5 +1,6 @@
 use axum::{routing::get, Router};
-use std::{net::SocketAddr, sync::Arc};
+use std::sync::Arc;
+use tokio::net::TcpListener;
 
 use crate::controllers::{add, item, list, remove, update};
 use crate::models::State as Store;
@@ -15,7 +16,7 @@ mod models;
 
 #[tokio::main]
 async fn main() {
-    let addr = SocketAddr::from(([127, 0, 0, 1], 2986));
+    let listener = TcpListener::bind("127.0.0.1:2986").await.unwrap();
 
     let state = Store::default();
 
@@ -24,8 +25,5 @@ async fn main() {
         .route("/:id", get(item).put(update).delete(remove))
         .with_state(Arc::clone(&state));
 
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    axum::serve(listener, app).await.unwrap();
 }

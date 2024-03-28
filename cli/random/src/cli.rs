@@ -27,7 +27,7 @@ pub enum Commands {
         length: Option<usize>,
     },
     /// Generate random ranged float
-    RangeF {
+    FloatRange {
         /// Start value (float)
         #[arg(short, long)]
         start: f64,
@@ -36,7 +36,7 @@ pub enum Commands {
         end: f64,
     },
     /// Generate random ranged integer
-    RangeN {
+    IntegerRange {
         /// Start value (integer)
         #[arg(short, long)]
         start: i64,

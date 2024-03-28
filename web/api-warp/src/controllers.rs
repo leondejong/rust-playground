@@ -20,7 +20,7 @@ pub async fn index(state: State) -> Result<impl Reply, Infallible> {
 pub async fn get(id: u32, state: State) -> Result<Response, Infallible> {
     let list = state.lock().await;
     if let Some(item) = list.get(id) {
-        Ok(json(item).into_response())
+        Ok(json(&item).into_response())
     } else {
         Ok(StatusCode::NOT_FOUND.into_response())
     }
@@ -28,15 +28,19 @@ pub async fn get(id: u32, state: State) -> Result<Response, Infallible> {
 
 pub async fn insert(input: Input, state: State) -> Result<Response, Infallible> {
     let mut list = state.lock().await;
-    list.insert(&input.name, &input.content, input.active);
-    Ok(StatusCode::OK.into_response())
+    if let Some(item) = list.insert(&input.name, &input.content, input.active) {
+        Ok(json(&item).into_response())
+    } else {
+        Ok(StatusCode::INTERNAL_SERVER_ERROR.into_response())
+    }
 }
 
 pub async fn update(id: u32, input: Input, state: State) -> Result<Response, Infallible> {
     let mut list = state.lock().await;
-    if let Some(_item) = list.get(id) {
+    if let Some(item) = list.get(id) {
+        let item = item.clone();
         list.update(id, &input.name, &input.content, input.active);
-        Ok(StatusCode::OK.into_response())
+        Ok(json(&item).into_response())
     } else {
         Ok(StatusCode::NOT_FOUND.into_response())
     }
@@ -44,9 +48,10 @@ pub async fn update(id: u32, input: Input, state: State) -> Result<Response, Inf
 
 pub async fn remove(id: u32, state: State) -> Result<Response, Infallible> {
     let mut list = state.lock().await;
-    if let Some(_item) = list.get(id) {
+    if let Some(item) = list.get(id) {
+        let item = item.clone();
         list.remove(id);
-        Ok(StatusCode::OK.into_response())
+        Ok(json(&item).into_response())
     } else {
         Ok(StatusCode::NOT_FOUND.into_response())
     }
