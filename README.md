@@ -17,4 +17,4 @@
 
 ## Graphics
 
-- `graphics/nano-game-ggez` -> Nano platform game example with `ggez`
+- `graphics/basic-ggez` -> Basic platform example with `ggez`

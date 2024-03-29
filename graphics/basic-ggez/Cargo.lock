@@ -150,6 +150,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "basic-ggez"
+version = "0.1.0"
+dependencies = [
+ "ggez",
+]
+
+[[package]]
 name = "bindgen"
 version = "0.61.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1365,13 +1372,6 @@ dependencies = [
  "termcolor",
  "thiserror",
  "unicode-xid",
-]
-
-[[package]]
-name = "nano-game-ggez"
-version = "0.1.0"
-dependencies = [
- "ggez",
 ]
 
 [[package]]
