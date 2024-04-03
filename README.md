@@ -17,4 +17,5 @@
 
 ## Graphics
 
+- `graphics/basic-raylib` -> Basic platform example with `raylib`
 - `graphics/basic-ggez` -> Basic platform example with `ggez`

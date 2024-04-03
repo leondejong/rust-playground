@@ -1,18 +1,15 @@
+mod data;
+mod logic;
+mod state;
+
 use ggez::{
     self,
     conf::{WindowMode, WindowSetup},
     event, ContextBuilder, GameResult,
 };
 
+use crate::data::{HEIGHT, TITLE, WIDTH};
 use crate::state::State;
-
-mod data;
-mod logic;
-mod state;
-
-const TITLE: &str = "Basic";
-const WIDTH: f32 = 768.0;
-const HEIGHT: f32 = 576.0;
 
 fn main() -> GameResult {
     let title = WindowSetup::default().title(TITLE);

@@ -30,7 +30,17 @@ pub fn draw_rectangle(
     Ok(())
 }
 
-pub fn update_direction(state: &mut State) -> GameResult {
+pub fn update_direction(state: &mut State, input: KeyInput, value: bool) {
+    match input.keycode {
+        Some(KeyCode::E) => state.up = value,
+        Some(KeyCode::D) => state.down = value,
+        Some(KeyCode::S) => state.left = value,
+        Some(KeyCode::F) => state.right = value,
+        _ => (),
+    }
+}
+
+pub fn update_orientation(state: &mut State) {
     state.horizontal = 0.0;
     state.vertical = 0.0;
 
@@ -46,20 +56,6 @@ pub fn update_direction(state: &mut State) -> GameResult {
     if state.down && !state.up {
         state.vertical = 1.0;
     }
-
-    Ok(())
-}
-
-pub fn update_orientation(state: &mut State, input: KeyInput, value: bool) -> GameResult {
-    match input.keycode {
-        Some(KeyCode::E) => state.up = value,
-        Some(KeyCode::D) => state.down = value,
-        Some(KeyCode::S) => state.left = value,
-        Some(KeyCode::F) => state.right = value,
-        _ => (),
-    }
-
-    update_direction(state)
 }
 
 pub fn get_translation(state: &State) -> (f32, f32, f32, f32) {

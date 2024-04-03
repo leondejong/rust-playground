@@ -32,8 +32,11 @@ impl State {
     fn draw(&mut self, ctx: &mut Context) -> GameResult {
         draw(self, ctx)
     }
-    fn orientation(&mut self, input: KeyInput, value: bool) -> GameResult {
-        update_orientation(self, input, value)
+    fn events(&mut self, input: KeyInput, value: bool) -> GameResult {
+        update_direction(self, input, value);
+        update_orientation(self);
+
+        Ok(())
     }
 }
 
@@ -45,9 +48,9 @@ impl EventHandler<GameError> for State {
         self.draw(ctx)
     }
     fn key_down_event(&mut self, _ctx: &mut Context, input: KeyInput, _repeat: bool) -> GameResult {
-        self.orientation(input, true)
+        self.events(input, true)
     }
     fn key_up_event(&mut self, _ctx: &mut Context, input: KeyInput) -> GameResult {
-        self.orientation(input, false)
+        self.events(input, false)
     }
 }

@@ -1,6 +1,10 @@
 use crate::logic::tuple_to_rect;
 use crate::state::State;
 
+pub const TITLE: &str = "GGEZ";
+pub const WIDTH: f32 = 768.0;
+pub const HEIGHT: f32 = 576.0;
+
 pub const GRAVITY: f32 = 30.0;
 pub const SPEED: f32 = 300.0;
 pub const JUMP: f32 = 600.0;
@@ -28,7 +32,7 @@ pub fn get_state() -> State {
 }
 
 pub fn get_field() -> Vec<(i32, i32, i32, i32)> {
-    let field = vec![
+    vec![
         // borders
         (0, 0, 768, 16),
         (0, 560, 768, 16),
@@ -62,7 +66,5 @@ pub fn get_field() -> Vec<(i32, i32, i32, i32)> {
         (420, 80, 16, 64),
         (588, 80, 16, 64),
         (504, 16, 16, 64),
-    ];
-
-    field
+    ]
 }
