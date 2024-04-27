@@ -1,42 +1,58 @@
-use raylib::prelude::*;
-
-pub const TITLE: &str = "Raylib";
-
-pub const WIDTH: i32 = 768;
-pub const HEIGHT: i32 = 576;
-pub const FPS: u32 = 60;
+pub const TITLE: &str = "Nannou";
+pub const WIDTH: u32 = 768;
+pub const HEIGHT: u32 = 576;
 
 pub const GRAVITY: f32 = 30.0;
 pub const SPEED: f32 = 300.0;
 pub const JUMP: f32 = 600.0;
 
-pub const TEXT: Color = Color::new(255, 255, 255, 255);
-pub const CONTENT: Color = Color::new(255, 63, 0, 255);
-pub const FOREGROUND: Color = Color::new(223, 255, 0, 255);
-pub const BACKGROUND: Color = Color::new(0, 63, 95, 255);
+pub const CONTENT: (f32, f32, f32, f32) = (1.0, 0.25, 0.0, 1.0);
+pub const FOREGROUND: (f32, f32, f32, f32) = (0.875, 1.0, 0.0, 1.0);
+pub const BACKGROUND: (f32, f32, f32, f32) = (0.0, 0.25, 0.375, 1.0);
 
-pub struct State {
+pub struct Rectangle {
     pub x: f32,
     pub y: f32,
     pub width: f32,
     pub height: f32,
-    pub vx: f32, // velocity x
-    pub vy: f32, // velocity y
+}
+
+impl Rectangle {
+    pub fn new(x: f32, y: f32, width: f32, height: f32) -> Self {
+        Self {
+            x,
+            y,
+            width,
+            height,
+        }
+    }
+    pub fn from_tuple(tuple: &(i32, i32, i32, i32)) -> Self {
+        Self {
+            x: tuple.0 as f32,
+            y: tuple.1 as f32,
+            width: tuple.2 as f32,
+            height: tuple.3 as f32,
+        }
+    }
+}
+
+pub struct Model {
+    pub x: f32,
+    pub y: f32,
+    pub width: f32,
+    pub height: f32,
+    pub vx: f32,
+    pub vy: f32,
     pub up: bool,
     pub down: bool,
     pub left: bool,
     pub right: bool,
     pub horizontal: f32,
     pub vertical: f32,
-    pub delta: f32,
-    pub fps: u32,
-    pub speed: f32,
-    pub gravity: f32,
-    pub jump: f32,
     pub field: Vec<Rectangle>,
 }
 
-impl State {
+impl Model {
     pub fn new() -> Self {
         Self {
             x: 32.0,
@@ -51,12 +67,7 @@ impl State {
             left: false,
             horizontal: 0.0,
             vertical: 0.0,
-            delta: 0.0,
-            fps: FPS,
-            speed: 0.0,
-            gravity: 0.0,
-            jump: 0.0,
-            field: get_field().iter().map(tuple_to_rectangle).collect(),
+            field: get_field().iter().map(Rectangle::from_tuple).collect(),
         }
     }
 }
@@ -97,8 +108,4 @@ pub fn get_field() -> Vec<(i32, i32, i32, i32)> {
         (588, 80, 16, 64),
         (504, 16, 16, 64),
     ]
-}
-
-pub fn tuple_to_rectangle(r: &(i32, i32, i32, i32)) -> Rectangle {
-    Rectangle::new(r.0 as f32, r.1 as f32, r.2 as f32, r.3 as f32)
 }

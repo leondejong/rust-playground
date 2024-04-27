@@ -1,10 +1,10 @@
 use clap::Parser;
 
 mod cli;
-mod random;
+mod generation;
 
 use cli::*;
-use random::*;
+use generation::*;
 
 // cargo run -- --help
 

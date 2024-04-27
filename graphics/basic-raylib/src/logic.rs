@@ -2,10 +2,6 @@ use raylib::prelude::*;
 
 use crate::state::*;
 
-pub fn tuple_to_rectangle(r: &(i32, i32, i32, i32)) -> Rectangle {
-    Rectangle::new(r.0 as f32, r.1 as f32, r.2 as f32, r.3 as f32)
-}
-
 pub fn intersects(a: &Rectangle, b: &Rectangle) -> bool {
     return a.x < b.x + b.width
         && b.x < a.x + a.width

@@ -6,7 +6,7 @@
 
 ## CLI
 
-- `cli/random` -> CLI random sample generator example with `clap` and `rand`
+- `cli/generation-clap` -> CLI random sample generator example with `clap` and `rand`
 
 ## Web
 
@@ -18,4 +18,5 @@
 ## Graphics
 
 - `graphics/basic-raylib` -> Basic platform example with `raylib`
+- `graphics/basic-nannou` -> Basic platform example with `nannou`
 - `graphics/basic-ggez` -> Basic platform example with `ggez`

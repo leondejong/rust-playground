@@ -6,12 +6,7 @@ use ggez::{
     Context, GameResult,
 };
 
-use crate::data::*;
-use crate::state::State;
-
-pub fn tuple_to_rect(r: &(i32, i32, i32, i32)) -> Rect {
-    Rect::new(r.0 as f32, r.1 as f32, r.2 as f32, r.3 as f32)
-}
+use crate::state::*;
 
 pub fn intersects(a: &Rect, b: &Rect) -> bool {
     return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;

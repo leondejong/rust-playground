@@ -1,4 +1,3 @@
-mod data;
 mod logic;
 mod state;
 
@@ -8,8 +7,7 @@ use ggez::{
     event, ContextBuilder, GameResult,
 };
 
-use crate::data::{HEIGHT, TITLE, WIDTH};
-use crate::state::State;
+use crate::state::{State, HEIGHT, TITLE, WIDTH};
 
 fn main() -> GameResult {
     let title = WindowSetup::default().title(TITLE);
