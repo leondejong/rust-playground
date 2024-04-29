@@ -19,4 +19,5 @@
 
 - `graphics/basic-raylib` -> Basic platform example with `raylib`
 - `graphics/basic-nannou` -> Basic platform example with `nannou`
+- `graphics/basic-macroquad` -> Basic platform example with `macroquad`
 - `graphics/basic-ggez` -> Basic platform example with `ggez`

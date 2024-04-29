@@ -1,0 +1,28 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Macroquad Example</title>
+    <style>
+      body {
+        margin: 0;
+        background: rgba(0, 0, 0, 1);
+      }
+      canvas {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 768px;
+        height: 576px;
+        transform: translate(-50%, -50%);
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="glcanvas" tabindex="1"></canvas>
+    <script src="https://not-fl3.github.io/miniquad-samples/mq_js_bundle.js"></script>
+    <script>
+      load("../target/wasm32-unknown-unknown/debug/basic-macroquad.wasm");
+    </script>
+  </body>
+</html>
