@@ -50,9 +50,9 @@ pub fn render_rectangle(
     let sxw = (sx + rectangle.width as usize * s).clamp(0, w);
     let syh = (sy + rectangle.height as usize * s).clamp(0, h);
 
-    for y in sy..syh {
-        for x in sx..sxw {
-            buffer[x + y * w] = value;
+    for j in sy..syh {
+        for i in sx..sxw {
+            buffer[i + j * w] = value;
         }
     }
 }

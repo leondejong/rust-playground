@@ -1,16 +1,16 @@
 mod color;
 mod graphic;
 mod image;
+mod logic;
 mod rectangle;
 mod render;
 mod state;
-mod window;
 
 use color::Color;
 use graphic::Graphic;
+use logic::run;
 use rectangle::Rectangle;
 use state::State;
-use window::run;
 
 fn main() {
     let mut state = State::new();
@@ -44,5 +44,5 @@ fn main() {
 
     state.graphics = graphics;
 
-    run(state);
+    run(&mut state);
 }
