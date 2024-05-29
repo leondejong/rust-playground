@@ -9,7 +9,7 @@ pub fn render(buffer: &mut [u32], scale: f64, width: u32, height: u32, graphics:
     for graphic in graphics.iter() {
         match graphic {
             Graphic::Background { color } => {
-                render_background(buffer, width, height, *color);
+                render_background(buffer, *color);
             }
             Graphic::Rectangle { rectangle, color } => {
                 render_rectangle(buffer, scale, width, height, *rectangle, *color);
@@ -21,11 +21,11 @@ pub fn render(buffer: &mut [u32], scale: f64, width: u32, height: u32, graphics:
     }
 }
 
-pub fn render_background(buffer: &mut [u32], width: u32, height: u32, color: Color) {
+pub fn render_background(buffer: &mut [u32], color: Color) {
     let value = color.to_u32(false);
 
-    for index in 0..((width * height) as usize) {
-        buffer[index] = value;
+    for pixel in buffer.iter_mut() {
+        *pixel = value;
     }
 }
 

@@ -1,5 +1,4 @@
 use std::cell::RefCell;
-use std::num::NonZeroU32;
 use std::rc::Rc;
 
 use winit::application::ApplicationHandler;
@@ -8,20 +7,19 @@ use winit::event::WindowEvent;
 use winit::event_loop::{ActiveEventLoop, ControlFlow, EventLoop};
 use winit::window::{Window, WindowId};
 
-use softbuffer::Surface;
+use pixels::{Pixels, SurfaceTexture};
 
 use crate::state::State;
 
-pub const RESIZE: bool = true;
 pub const WIDTH: f64 = 576.0;
 pub const HEIGHT: f64 = 512.0;
-pub const TITLE: &str = "Winit Softbuffer";
+pub const TITLE: &str = "Winit Pixels";
 
 #[derive(Default)]
 struct App {
     state: State,
     window: Option<Rc<Window>>,
-    surface: Option<Rc<RefCell<Surface<Rc<Window>, Rc<Window>>>>>,
+    pixels: Option<Rc<RefCell<Pixels>>>,
 }
 
 pub fn run(state: State) {
@@ -40,29 +38,34 @@ impl ApplicationHandler for App {
                 .create_window(
                     Window::default_attributes()
                         .with_title(TITLE)
-                        .with_resizable(RESIZE)
+                        .with_resizable(false)
                         .with_inner_size(Size::Logical(LogicalSize::new(WIDTH, HEIGHT))),
                 )
                 .unwrap(),
         );
 
-        let context = softbuffer::Context::new(window.clone()).unwrap();
-        let surface = softbuffer::Surface::new(&context, window.clone()).unwrap();
+        let pixels = {
+            let window_size = window.inner_size();
+            let surface_texture =
+                SurfaceTexture::new(window_size.width, window_size.height, &window);
+            Pixels::new(WIDTH as u32, HEIGHT as u32, surface_texture).unwrap()
+        };
 
-        self.window = Some(window);
-        self.surface = Some(Rc::new(RefCell::new(surface)));
+        self.window = Some(window.clone());
+        self.pixels = Some(Rc::new(RefCell::new(pixels)));
+
+        window.request_redraw();
     }
     fn window_event(&mut self, event_loop: &ActiveEventLoop, _id: WindowId, event: WindowEvent) {
         match event {
             WindowEvent::CloseRequested => {
-                let _ = self.surface.take();
                 let _ = self.window.take();
                 event_loop.exit();
             }
             WindowEvent::RedrawRequested => {
                 let window = self.window.clone().unwrap();
-                let surface = self.surface.clone().unwrap();
-                let mut surface = surface.borrow_mut();
+                let pixels = self.pixels.clone().unwrap();
+                let mut pixels = pixels.borrow_mut();
 
                 let scale = window.scale_factor();
 
@@ -71,20 +74,15 @@ impl ApplicationHandler for App {
                     (size.width, size.height)
                 };
 
-                surface
-                    .resize(
-                        NonZeroU32::new(width).unwrap(),
-                        NonZeroU32::new(height).unwrap(),
-                    )
-                    .unwrap();
+                pixels.resize_surface(width, height).unwrap();
 
-                let mut buffer = surface.buffer_mut().unwrap();
+                let mut buffer = pixels.frame_mut();
 
                 self.state.render(&mut buffer, scale, width, height);
 
-                buffer.present().unwrap();
+                let _ = pixels.render();
 
-                // self.window.as_ref().unwrap().request_redraw();
+                // window.request_redraw();
             }
             _ => (),
         }

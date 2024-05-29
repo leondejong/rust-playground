@@ -17,9 +17,10 @@
 
 ## Graphics
 
+- `graphics/basic-ggez` -> Basic platform example with `ggez`
 - `graphics/basic-raylib` -> Basic platform example with `raylib`
 - `graphics/basic-nannou` -> Basic platform example with `nannou`
 - `graphics/basic-macroquad` -> Basic platform example with `macroquad`
-- `graphics/basic-ggez` -> Basic platform example with `ggez`
 - `graphics/winit-softbuffer` -> Pixel drawing example with `winit` and `softbuffer`
+- `graphics/winit-pixels` -> Pixel drawing example with `winit` and `pixels`
 - `graphics/minifb-example` -> Pixel drawing example with `minifb`
