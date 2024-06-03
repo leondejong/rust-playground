@@ -3,13 +3,6 @@
 version = 3
 
 [[package]]
-name = "basic-raylib"
-version = "0.1.0"
-dependencies = [
- "raylib",
-]
-
-[[package]]
 name = "cc"
 version = "1.0.90"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -58,6 +51,13 @@ dependencies = [
  "lazy_static",
  "libc",
  "raylib-sys",
+]
+
+[[package]]
+name = "raylib-platform"
+version = "0.1.0"
+dependencies = [
+ "raylib",
 ]
 
 [[package]]

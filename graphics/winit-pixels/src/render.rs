@@ -80,7 +80,7 @@ pub fn render_image(
         if sx >= x && sx < w && sy >= y && sy < h {
             if let Some(color) = iter.next() {
                 if color & ALPHA_MASK > 0 {
-                    let color = Color::u32_to_color(*color);
+                    let color = Color::from_u32(*color);
                     pixel.copy_from_slice(&[color.red, color.green, color.blue, color.alpha]);
                 }
             }
