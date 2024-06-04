@@ -4,7 +4,7 @@ use crate::color::Color;
 use crate::logic::{render, update};
 use crate::rectangle::Rectangle;
 
-pub const TITLE: &str = "MiniFB Example";
+pub const TITLE: &str = "MiniFB";
 
 pub const WIDTH: usize = 768;
 pub const HEIGHT: usize = 576;

@@ -86,11 +86,11 @@ pub fn render_image(
     let cx = s * (image_x as i32).clamp(0, w);
     let cy = s * (image_y as i32).clamp(0, h);
 
-    let sxw = (sx + sw).clamp(0, w);
-    let syh = (sy + sh).clamp(0, h);
+    let cw = (sx + sw).clamp(0, w);
+    let ch = (sy + sh).clamp(0, h);
 
-    for y in cy..syh {
-        for x in cx..sxw {
+    for y in cy..ch {
+        for x in cx..cw {
             let index = (x + y * w) as usize;
             let point = (x / s - ix + (y / s - iy) * iw) as usize;
             if image.data[point] & ALPHA_MASK > 0 {

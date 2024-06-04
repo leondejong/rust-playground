@@ -22,6 +22,7 @@
 - `graphics/nannou-platform` -> Basic platform example with `nannou`
 - `graphics/macroquad-platform` -> Basic platform example with `macroquad`
 - `graphics/minifb-platform` -> Basic platform example with `minifb`
+- `graphics/wasm-platform` -> Basic platform example with `wasm`
 - `graphics/winit-softbuffer` -> Pixel drawing example with `winit` and `softbuffer`
 - `graphics/winit-pixels` -> Pixel drawing example with `winit` and `pixels`
 - `graphics/minifb-example` -> Pixel drawing example with `minifb`

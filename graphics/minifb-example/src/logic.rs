@@ -5,7 +5,7 @@ use crate::state::State;
 pub const FPS: usize = 60;
 pub const WIDTH: usize = 576;
 pub const HEIGHT: usize = 512;
-pub const TITLE: &str = "MiniFB Example";
+pub const TITLE: &str = "MiniFB";
 
 pub fn run(state: &mut State) {
     let mut buffer: Vec<u32> = vec![0; WIDTH * HEIGHT];

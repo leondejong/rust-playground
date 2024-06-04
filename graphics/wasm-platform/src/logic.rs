@@ -1,8 +1,8 @@
-use crate::state::*;
+use crate::wasm::{draw_rectangle, draw_text};
 
-use crate::graphic::Graphic;
-use crate::rectangle::Rectangle;
-use crate::render::render_graphics;
+use crate::state::{
+    Rectangle, State, BACKGROUND, CONTENT, FOREGROUND, GRAVITY, HEIGHT, JUMP, SPEED, TEXT, WIDTH,
+};
 
 pub fn intersects(a: &Rectangle, b: &Rectangle) -> bool {
     return a.x < b.x + b.width
@@ -11,7 +11,7 @@ pub fn intersects(a: &Rectangle, b: &Rectangle) -> bool {
         && b.y < a.y + a.height;
 }
 
-pub fn get_translation(state: &State) -> (f32, f32, f32, f32) {
+pub fn get_translation(state: &State) -> (f64, f64, f64, f64) {
     let mut cx = 0.0;
     let mut cy = 0.0;
     let mut dx = state.vx;
@@ -44,7 +44,7 @@ pub fn get_translation(state: &State) -> (f32, f32, f32, f32) {
     (dx, dy, cx, cy)
 }
 
-pub fn orientation(state: &mut State) {
+pub fn update_orientation(state: &mut State) {
     state.horizontal = 0.0;
     state.vertical = 0.0;
 
@@ -62,12 +62,31 @@ pub fn orientation(state: &mut State) {
     }
 }
 
-pub fn update(state: &mut State) {
-    orientation(state);
+pub fn update_direction(state: &mut State, kind: &str, key: &str) {
+    if kind == "keydown" {
+        match key {
+            "s" => state.left = true,
+            "f" => state.right = true,
+            "e" => state.up = true,
+            "d" => state.down = true,
+            _ => {}
+        }
+    }
+    if kind == "keyup" {
+        match key {
+            "s" => state.left = false,
+            "f" => state.right = false,
+            "e" => state.up = false,
+            "d" => state.down = false,
+            _ => {}
+        }
+    }
+}
 
+pub fn update(state: &mut State) {
     state.speed = SPEED * state.delta;
     state.gravity = GRAVITY * state.delta;
-    state.jump = JUMP * (1.0 / state.fps as f32); // corrects instable jump
+    state.jump = JUMP * (1.0 / state.fps as f64); // corrects instable jump
 
     state.vx = state.speed * state.horizontal;
     state.vy += state.gravity;
@@ -84,19 +103,37 @@ pub fn update(state: &mut State) {
     }
 }
 
-pub fn render(state: &mut State, buffer: &mut Vec<u32>, scale: f64, width: u32, height: u32) {
-    let background = Graphic::background(BACKGROUND);
+pub fn render(state: &State) {
+    let text = format!("fps: {}", state.fps);
 
-    let dimensions = Rectangle::new(state.x, state.y, state.width, state.height);
-    let rectangle = Graphic::rectangle(dimensions, CONTENT);
-
-    let mut graphics = vec![background, rectangle];
+    draw_rectangle(
+        &state.context,
+        0.0,
+        0.0,
+        WIDTH as f64,
+        HEIGHT as f64,
+        BACKGROUND,
+    );
 
     for rectangle in state.field.iter() {
-        let dimensions =
-            Rectangle::new(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        graphics.push(Graphic::rectangle(dimensions, FOREGROUND));
+        draw_rectangle(
+            &state.context,
+            rectangle.x,
+            rectangle.y,
+            rectangle.width,
+            rectangle.height,
+            FOREGROUND,
+        );
     }
 
-    render_graphics(buffer, scale, width, height, &graphics);
+    draw_text(&state.context, &text, 32.0, 40.0, "14px sans-serif", TEXT);
+
+    draw_rectangle(
+        &state.context,
+        state.x,
+        state.y,
+        state.width,
+        state.height,
+        CONTENT,
+    );
 }
