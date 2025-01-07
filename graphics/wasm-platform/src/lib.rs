@@ -14,8 +14,8 @@ use wasm::{handle_key, request_frame};
 
 use state::{State, TITLE};
 
-// npm install
-// npm run serve
+// pnpm install
+// pnpm run serve
 
 #[wasm_bindgen(start)]
 async fn start() {

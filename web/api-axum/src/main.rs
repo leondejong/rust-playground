@@ -22,7 +22,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(list).post(add))
-        .route("/:id", get(item).put(update).delete(remove))
+        .route("/{id}", get(item).put(update).delete(remove))
         .with_state(Arc::clone(&state));
 
     axum::serve(listener, app).await.unwrap();

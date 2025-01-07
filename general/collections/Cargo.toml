@@ -7,5 +7,5 @@ version = "0.1.0"
 
 [dependencies]
 cfg-if = "1.0.0"
-chrono = "0.4.37"
+chrono = "0.4.39"
 rand = "0.8.5"

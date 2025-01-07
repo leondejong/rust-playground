@@ -7,14 +7,14 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-futures = "0.3.30"
+futures = "0.3.31"
 gloo = "0.11.0"
-js-sys = "0.3.69"
-wasm-bindgen = "0.2.92"
-wasm-bindgen-futures = "0.4.42"
+js-sys = "0.3.76"
+wasm-bindgen = "0.2.99"
+wasm-bindgen-futures = "0.4.49"
 
 [dependencies.web-sys]
-version = "0.3.69"
+version = "0.3.76"
 features = [
   'console',
   'Window',

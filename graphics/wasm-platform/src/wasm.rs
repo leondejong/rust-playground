@@ -120,7 +120,7 @@ pub fn draw_rectangle(
     height: f64,
     color: &str,
 ) {
-    context.set_fill_style(&JsValue::from_str(color));
+    context.set_fill_style_str(&color);
     context.fill_rect(x, y, width, height);
 }
 
@@ -133,6 +133,6 @@ pub fn draw_text(
     color: &str,
 ) {
     context.set_font(font);
-    context.set_fill_style(&JsValue::from_str(color));
+    context.set_fill_style_str(&color);
     context.fill_text(text, x, y).unwrap();
 }
